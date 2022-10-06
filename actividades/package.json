@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
-    "inquirer": "^9.1.2"
+    "commons": "^0.0.1-pre",
+    "inquirer": "^8.0.0",
+    "nodemon": "^2.0.20"
   }
 }
