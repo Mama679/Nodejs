@@ -10,7 +10,9 @@ class Tareas{
     getListadoArr(){
         const _listado = [];
         Object.keys(this.listado).forEach(key => {
-            console.log(key);
+           // console.log(key);
+           const tarea = this.listado[key];
+           _listado.push(tarea);
         });
 
         return _listado;
