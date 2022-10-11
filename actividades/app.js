@@ -1,6 +1,7 @@
 require('colors');
 const Tarea = require('./clases/tarea');
 const Tareas = require('./clases/tareas');
+const {guardarDb,leerDb} = require('./helpers/procesos');
 const {inquirerMenu,pausa,leerInput} = require('./helpers/inquirer');
 //const {mostrarMenu, pausa} = require('./helpers/mensajes');
 
@@ -10,10 +11,17 @@ console.clear();
 const main = async() => {
     let opt = '';
     const tareas = new Tareas();
+    const tareaDb = leerDb();
+
+    if(tareaDb){
+        tareas.cargarTareas(tareaDb);
+    }
+    
 do{
         //Imprimir el Menu   
         opt = await inquirerMenu();
        // opt = await mostrarMenu();
+       
         switch(opt){
             case '1':
                 const desc = await leerInput('Descripción: ');
@@ -21,10 +29,13 @@ do{
                 break;
             case '2':
                 //console.log(tareas.listado);
-                console.log(tareas.getListadoArr());
+                //console.log(tareas.getListadoArr());
+                tareas.listadoCompleto();
                 break;
-        }
+        }   
+        guardarDb(tareas.getListadoArr());
         await pausa();
+        
 }while(opt !== '0')
 
     ////const tarea = new Tarea('Comprar Viveres');
