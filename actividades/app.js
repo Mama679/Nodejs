@@ -32,6 +32,12 @@ do{
                 //console.log(tareas.getListadoArr());
                 tareas.listadoCompleto();
                 break;
+            case '3':
+                 tareas.listadoEstado();
+                break;
+            case '4':
+                tareas.listadoEstado(false);
+                break;
         }   
         guardarDb(tareas.getListadoArr());
         await pausa();

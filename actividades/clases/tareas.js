@@ -32,13 +32,50 @@ class Tareas{
     }
 
     listadoCompleto(){
+        console.log();
         let i = 1;
         Object.keys(this.listado).forEach(key =>{
-            console.log(`${i.green} ${this.listado[key].desc} :: ${this.listado[key].completadoEm}`);
+            console.log(`${(i + ".").green} ${this.listado[key].desc} :: ${(this.listado[key].completadoEn) === null ? 'Pendiente'.red:'Completado'.green}`);
             i++;
+        });
+
+        /*this.listado.forEach((tarea,i) => {
+            const idx = `${i+1}`.green;
+            const {desc,completadoEn} = tarea;
+            const estado = (completadoEn) ? 'Completado'.green : 'Pendiente'.red;
+
+            console.log(`${idx} ${desc} :: ${estado}`);
+        });*/
+    }
+
+    listadoEstado(completados = true){
+        console.log();
+        let i = 0;
+        Object.keys(this.listado).forEach(key =>{
+            const estado = this.listado[key].completadoEn; 
+            
+            if(completados)
+            {
+                if(estado)
+                {
+                    i = i + 1;
+                    console.log(`${(i + ".").green} ${this.listado[key].desc} :: ${'Completado'.green}`);
+                } 
+                
+            }
+            else
+            {
+                if(!estado)
+                {
+                    i = i + 1;
+                    console.log(`${(i + ".").green} ${this.listado[key].desc} :: ${'Pendiente'.red}`);
+                }
+            }
+            
+            
         });
     }
 
 }
 
-module.exports = Tareas;
+module.exports = Tareas; 
