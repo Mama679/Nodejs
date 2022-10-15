@@ -24,7 +24,7 @@ const preguntas = [{
         },
         {
             value:'5',
-            name: `${'5.'.green} Completar Tare(s)`
+            name: `${'5.'.green} Completar Tarea(s)`
         },
         {
             value:'6',
@@ -76,8 +76,36 @@ const leerInput = async(message)=>{
     return desc;
 }
 
+const listatoTareasBorrar = async(tareas = []) =>{
+   /* {
+        value: '1',
+        name:`${'1.'.green} Crear Lista`
+    },*/
+
+    const opciones = tareas.map( (tarea, i) => {
+        const idx = `${i + 1}.`.green;
+        return {
+          value: tarea.id,
+          name: `${idx} ${tarea.desc}`
+        }
+    });
+    
+    const elecciones = [{
+        type:'list',
+        name:'id',
+        message:'Borrar',
+        choices:opciones
+    }];
+
+    const {id} = await inquirer.prompt(elecciones);
+
+    return id;
+    
+}
+
 module.exports = {
     inquirerMenu,
     pausa,
-    leerInput
+    leerInput,
+    listatoTareasBorrar
 }
