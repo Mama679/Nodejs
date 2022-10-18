@@ -2,7 +2,7 @@ require('colors');
 const Tarea = require('./clases/tarea');
 const Tareas = require('./clases/tareas');
 const {guardarDb,leerDb} = require('./helpers/procesos');
-const {inquirerMenu,pausa,leerInput,listatoTareasBorrar} = require('./helpers/inquirer');
+const {inquirerMenu,pausa,leerInput,listatoTareasBorrar,confirmar} = require('./helpers/inquirer');
 //const {mostrarMenu, pausa} = require('./helpers/mensajes');
 
 
@@ -44,7 +44,16 @@ do{
             case '6':
                 const id = await listatoTareasBorrar(tareas.getListadoArr());
                 //Realizar la confirmación de Borrado
-                console.log({id});
+                if(id !== '0')
+                {
+                    const ok = await confirmar('¿Esta seguro de borrar Tarea?');
+                    if(ok)
+                    {
+                        tareas.borrarTarea(id);
+                        console.log('Tarea ha sido borrada');
+                    }
+                }
+                
                 break;
         }   
         guardarDb(tareas.getListadoArr());

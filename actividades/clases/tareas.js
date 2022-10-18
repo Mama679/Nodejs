@@ -77,9 +77,10 @@ class Tareas{
     }
 
     borrarTarea(id = ''){
-        if(this.listado['id'])
+        
+        if(this.listado[id])
         {
-            delete this.listado['id'];
+            delete this.listado[id];
         }
     }
     
