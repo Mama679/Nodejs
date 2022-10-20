@@ -59,7 +59,7 @@ class Tareas{
                 if(estado)
                 {
                     i = i + 1;
-                    console.log(`${(i + ".").green} ${this.listado[key].desc} :: ${'Completado'.green}`);
+                    console.log(`${(i + ".").green} ${this.listado[key].desc} :: ${estado.green}`);
                 } 
                 
             }
@@ -84,6 +84,23 @@ class Tareas{
         }
     }
     
+    toggleCompletadas(ids = []){
+        ids.forEach(id =>{
+            const tarea = this.listado[id];
+            if(!tarea.completadoEn)
+            {
+                tarea.completadoEn = new Date().toISOString();
+            }
+        });
+
+        this.getListadoArr().forEach(tarea =>{
+            if(!ids.includes(tarea.id)){
+                this.listado[tarea.id].completadoEn = null;
+            }
+        });
+    }
+
+
 
 }
 
