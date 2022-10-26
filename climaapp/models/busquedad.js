@@ -1,14 +1,41 @@
+const axios = require('axios');
 class Busquedas {
-    historial = ['Bogota','Barranquilla','Madrid'];
+    historial = ['Bogota', 'Barranquilla', 'Madrid'];
 
-    constructor(){
+    constructor() {
         //Todo leer desde la Base de datos si existe
     }
 
-    async ciudad(lugar = ''){
+    get paramsMapbox(){
+        return {
+            'access_token':process.env.MAPBOX_KEY,
+            'limit':5,
+            'language':'es'
+        }
+        
+    }
+
+    async ciudad(lugar = '') {
         //Petición HTTP
-        console.log(lugar);
-        return [];//Arrglos de lugares
+        try {
+            const instance = axios.create({
+                baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lugar}.json`,
+                params:this.paramsMapbox
+            });
+            const resp = await instance.get();
+            //const resp = await axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/Barranquilla.json?language=es&access_token=pk.eyJ1IjoibWFtYTY3OSIsImEiOiJjbDluYTVjZmswMmhrM25vOHRjeDQ2bGUwIn0.zaMibsBqcwc5rsk73daJxw');
+           //console.log(resp.data.features);
+           //Arrglos de lugares
+           return resp.data.features.map(lugar =>({
+                id:lugar.id,
+                nombre:lugar.place_name,
+                lng:lugar.center[0],
+                lat:lugar.center[1]
+           }));
+        }
+        catch (error) {
+            return [];
+        }
     }
 }
 
