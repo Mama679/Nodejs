@@ -39,10 +39,15 @@ const main = async () => {
 
                 break;
             case 2:
-                busquedad.historial.forEach((lugar,i)=> {
+                /*busquedad.historial.forEach((lugar,i)=> {
                     const idx = `${ i + 1}`.green;
                     console.log(`${idx} ${lugar}`);
-                })
+                });*/
+
+                busquedad.capitalizado.forEach((lugar, i)=>{
+                    const idx = `${i + 1}.`.green;
+                    console.log(`${idx} ${lugar}`);
+                });
                 break;
         }
         if (opt !== 0) await pausa();
