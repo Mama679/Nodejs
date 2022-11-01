@@ -1,17 +1,33 @@
 const express = require('express');
+const hbs = require('hbs');
+
 const app = express();
 const port = 3000;
 
-//Servir contenido estatico
+//HandlerBars
+app.set('view engine','hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
+
+//Servir contenido estatico
 app.use(express.static('public'));
 
+app.get('/', (req, res) =>{
+  //res.send("Hola Mundo!");
+  res.render('home',{
+    nombre:'Mario Manotas Durán',
+    titulo: 'Curso de NodeJs'
+  });
+});
+
 app.get('/elements', (req, res) =>{
-  res.sendFile(__dirname + '/public/elements.html');
+  //res.sendFile(__dirname + '/public/elements.html');
+  res.render('elements',{nombre: 'Mario Manotas Durán',titulo: 'Curso de NodeJs'});
 });
 
 app.get('/generic', (req, res) =>{
-    res.sendFile(__dirname + '/public/generic.html');
+    //res.sendFile(__dirname + '/public/generic.html');
+    res.render('generic',{nombre: 'Mario Manotas Durán',titulo: 'Curso de NodeJs'});
   });
 
 app.get('*', (req, res) =>{
